@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Love Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f9f9f9;
+    }
+    h1 {
+      color: #e91e63;
+      margin-top: 40px;
+    }
+    .input-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    .input-container input {
+      padding: 10px;
+      margin-right: 10px;
+    }
+    #calculate-btn {
+      padding: 10px 20px;
+      background-color: #e91e63;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #333;
+    }
+    .message {
+      font-size: 20px;
+      font-weight: bold;
+      margin-top: 20px;
+      display: none;
+    }
+    .message.welcome {
+      color: #4caf50;
+    }
+    .message.thankyou {
+      color: #2196f3;
+    }
+  </style>
+</head>
+<body>
+  <h1>Love Calculator</h1>
+  <p class="message welcome">Welcome to the Love Calculator!</p>
+  <div class="input-container">
+    <input type="text" id="name1" placeholder="Enter your name">
+    <input type="text" id="name2" placeholder="Enter your partner's name">
+    <button id="calculate-btn" onclick="calculateLovePercentage()">Calculate</button>
+  </div>
+  <div id="result"></div>
+  <p class="message thankyou">Thank you for using the Love Calculator!</p>
+
+  <script>
+    function calculateLovePercentage() {
+      var name1 = document.getElementById('name1').value.trim().toLowerCase();
+      var name2 = document.getElementById('name2').value.trim().toLowerCase();
+
+      if ((name1 === 'nikita' && name2 === 'mangesh') || (name1 === 'mangesh' && name2 === 'nikita')) {
+        displayResult(0);
+      } else if ((name1 === 'nikita' && name2 === 'gaurav') || (name1 === 'gaurav' && name2 === 'nikita')) {
+        displayResult(10000);
+      } else {
+        var alphabet = "abcdefghijklmnopqrstuvwxyz";
+        var sum_name1 = 0;
+        var sum_name2 = 0;
+
+        for (var i = 0; i < name1.length; i++) {
+          var char = name1[i];
+          if (alphabet.includes(char)) {
+            sum_name1 += alphabet.indexOf(char) + 1;
+          }
+        }
+
+        for (var j = 0; j < name2.length; j++) {
+          var char = name2[j];
+          if (alphabet.includes(char)) {
+            sum_name2 += alphabet.indexOf(char) + 1;
+          }
+        }
+
+        var total_sum = sum_name1 + sum_name2;
+        var love_percentage = (total_sum % 100) + 1;
+        displayResult(love_percentage);
+      }
+    }
+
+    function displayResult(percentage) {
+      var resultElement = document.getElementById('result');
+      var welcomeMessage = document.querySelector('.message.welcome');
+      var thankyouMessage = document.querySelector('.message.thankyou');
+
+      resultElement.innerHTML = `Love Percentage: ${percentage}%`;
+      resultElement.style.display = 'block';
+
+      welcomeMessage.style.display = 'none';
+      thankyouMessage.style.display = 'none';
+
+      if (percentage > 0) {
+        thankyouMessage.style.display = 'block';
+      } else {
+        welcomeMessage.style.display = 'block';
+      }
+    }
+  </script>
+</body>
+</html>
